@@ -1,0 +1,445 @@
+<div id="glowscript" class="glowscript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.2.min.js"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+;(function() {;
+var ρσ_modules = {};
+var t;
+ρσ_modules.pythonize = {};
+
+(function(){
+    function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+            exclude = (function(){
+                var s = ρσ_set();
+                s.jsset.add("split");
+                s.jsset.add("replace");
+                return s;
+            })();
+        } else if (arguments[0]) {
+            exclude = Array.prototype.slice.call(arguments);
+        } else {
+            exclude = null;
+        }
+        if (exclude) {
+            string_funcs = string_funcs.difference(set(exclude));
+        }
+        var ρσ_Iter0 = string_funcs;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            name = ρσ_Index0;
+            (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+        }
+    };
+    if (!strings.__module__) Object.defineProperties(strings, {
+        __module__ : {value: "pythonize"}
+    });
+
+    ρσ_modules.pythonize.strings = strings;
+})();
+async function __main__() {
+"use strict";
+    var display = canvas;
+    var scene = canvas();
+
+    var version, print, arange, __name__, type, ρσ_ls, set, btnOnOff, btnReset, dt, t, T, v, A, L, count, d, disSource, pWaveSourve1, pWaveSourve2, lstPoint, j, i, chkOpacity, lam, numCircle, circleKrest1, circleKrest2, circleTrough1, circleTrough2, chkCircle;
+    version = ρσ_list_decorate([ "3.2", "glowscript" ]);
+    Array.prototype['+'] = function(r) {return this.concat(r)}
+    Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+    window.__GSlang = "vpython";
+    print = GSprint;
+    arange = range;
+    __name__ = "__main__";
+    type = pytype;
+    var strings = ρσ_modules.pythonize.strings;
+
+    strings();
+    "3";
+    scene.width = 900;
+    "4";
+    scene.height = 700;
+    "5";
+    scene.append_to_title("<div><h4 align=center>3.4 波的干涉-圆\n</h4></div>");
+    "6";
+    scene.append_to_title("张成进  QQ:82899594");
+    "16";
+    async function vv(x, y, z) {
+        "17";
+        return vector(x, z, 1["-u"]()["*"](y));
+    };
+    if (!vv.__argnames__) Object.defineProperties(vv, {
+        __argnames__ : {value: ["x", "y", "z"]},
+        __module__ : {value: null}
+    });
+
+    "19";
+    async function pol(r, deg1, deg2) {
+        var ρσ_ls, rad1, rad2, Cx, Cy;
+        "20";
+        rad1 = (await radians(deg1));
+        "21";
+        rad2 = (await radians(deg2));
+        "22";
+        Cx = vector(cos(rad1), 0, 1["-u"]()["*"](sin(rad1)));
+        "23";
+        Cy = vector(0, 1, 0);
+        "24";
+        return r["*"](cos(rad2))["*"](Cx)["+"](r["*"](sin(rad2))["*"](Cy));
+    };
+    if (!pol.__argnames__) Object.defineProperties(pol, {
+        __argnames__ : {value: ["r", "deg1", "deg2"]},
+        __module__ : {value: null}
+    });
+
+    "26";
+    set = ρσ_list_decorate([ false, false ]);
+    "29";
+    btnOnOff = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: on_off, text: "Start"})]);
+    "30";
+    async function on_off(ev) {
+        "31";
+        ρσ_setitem(set, 0, !ρσ_getitem(set, 0));
+        "32";
+        ρσ_setitem(set, 1, false);
+        "33";
+        if (ρσ_getitem(set, 0)) {
+            "34";
+            ev.text = "Pause";
+            "35";
+        } else {
+            "36";
+            ev.text = "Start";
+        }
+        "37";
+        (await fresh());
+    };
+    if (!on_off.__argnames__) Object.defineProperties(on_off, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "39";
+    scene.append_to_caption("    ");
+    "40";
+    btnReset = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: reset, text: "Reset"})]);
+    "41";
+    async function reset() {
+        "42";
+        btnOnOff.text = "Start";
+        "43";
+        ρσ_setitem(set, 0, false);
+        "44";
+        ρσ_setitem(set, 1, true);
+        "45";
+        "46";
+        t = 0;
+        "47";
+        (await redraw_quad());
+        "48";
+        (await redraw_normal());
+        "49";
+        (await redraw_Circle());
+    };
+    if (!reset.__module__) Object.defineProperties(reset, {
+        __module__ : {value: null}
+    });
+
+    "52";
+    dt = .05;
+    "53";
+    t = 0;
+    "54";
+    async function fresh() {
+        "55";
+        while (ρσ_getitem(set, 0)) {
+            "56";
+            (await rate(30));
+            "57";
+            "58";
+            if (!ρσ_getitem(set, 1)) {
+                t=t["+"](dt);
+            }
+            "59";
+            if (chkOpacity.checked) {
+                "60";
+                (await redraw_quad());
+                "61";
+                (await redraw_normal());
+                "63";
+            }
+            if (chkCircle.checked) {
+                "64";
+                (await redraw_Circle());
+            }
+        }
+    };
+    if (!fresh.__module__) Object.defineProperties(fresh, {
+        __module__ : {value: null}
+    });
+
+    "67";
+    scene.camera.pos = (await vv(2, 1["-u"]()["*"](15), 10));
+    "68";
+    scene.camera.axis = vec(0, 0, 0)["-"](1["*"](scene.camera.pos));
+    "69";
+    scene.range = 7;
+    "72";
+    T = 1.5;
+    v = 1;
+    A = .2;
+    "74";
+    L = 10;
+    count = 60;
+    d = L["/"](count);
+    "76";
+    disSource = 5;
+    pWaveSourve1 = (await vv(1["-u"]()["*"](L)["/"](2)["+"](1), 1["-u"]()["*"](disSource)["/"](2), 0));
+    pWaveSourve2 = (await vv(1["-u"]()["*"](L)["/"](2)["+"](1), disSource["/"](2), 0));
+    "79";
+    lstPoint = ρσ_list_decorate([]);
+    "81";
+    for (var ρσ_Index1 = 0; ρσ_Index1["<"](count["+"](1)); ρσ_Index1++) {
+        i = ρσ_Index1;
+        "82";
+        lstPoint.append(ρσ_list_decorate([]));
+        "83";
+        for (var ρσ_Index2 = 0; ρσ_Index2["<"](count["+"](1)); ρσ_Index2++) {
+            j = ρσ_Index2;
+            "84";
+            ρσ_getitem(lstPoint, i).append(ρσ_interpolate_kwargs.call(this, vertex, [ρσ_desugar_kwargs({pos: (await vv(1["-u"]()["*"](L)["/"](2)["+"](i["*"](d)), 1["-u"]()["*"](L)["/"](2)["+"](j["*"](d)), 0)), color: color.cyan, normal: (await vv(0, 0, 1))})]));
+        }
+    }
+    "87";
+    for (var ρσ_Index3 = 0; ρσ_Index3["<"](count); ρσ_Index3++) {
+        i = ρσ_Index3;
+        "88";
+        for (var ρσ_Index4 = 0; ρσ_Index4["<"](count); ρσ_Index4++) {
+            j = ρσ_Index4;
+            "89";
+            ρσ_interpolate_kwargs.call(this, quad, [ρσ_desugar_kwargs({vs: ρσ_list_decorate([ ρσ_getitem(ρσ_getitem(lstPoint, i), j), ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j), ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j["+"](1)), ρσ_getitem(ρσ_getitem(lstPoint, i), j["+"](1)) ])})]);
+        }
+    }
+    "92";
+    async function calA1(pp) {
+        var ρσ_ls, dis, t0;
+        "93";
+        dis = mag(vec(pp.pos.x, 0, pp.pos.z)["-"](1["*"](pWaveSourve1)));
+        "94";
+        t0 = dis["/"](v);
+        "95";
+        if (t["<="](t0)) {
+            "96";
+            return 0;
+            "97";
+        } else {
+            "98";
+            return A["*"](sin(2["*"](pi)["/"](T)["*"](t["-"](1["*"](t0)))));
+        }
+    };
+    if (!calA1.__argnames__) Object.defineProperties(calA1, {
+        __argnames__ : {value: ["pp"]},
+        __module__ : {value: null}
+    });
+
+    "100";
+    async function calA2(pp) {
+        var ρσ_ls, dis, t0;
+        "101";
+        dis = mag(vec(pp.pos.x, 0, pp.pos.z)["-"](1["*"](pWaveSourve2)));
+        "102";
+        t0 = dis["/"](v);
+        "103";
+        if (t["<="](t0)) {
+            "104";
+            return 0;
+            "105";
+        } else {
+            "106";
+            return A["*"](sin(2["*"](pi)["/"](T)["*"](t["-"](1["*"](t0)))));
+        }
+    };
+    if (!calA2.__argnames__) Object.defineProperties(calA2, {
+        __argnames__ : {value: ["pp"]},
+        __module__ : {value: null}
+    });
+
+    "110";
+    async function redraw_quad() {
+        var ρσ_ls, P, j, i;
+        "112";
+        for (var ρσ_Index5 = 0; ρσ_Index5["<"](count["+"](1)); ρσ_Index5++) {
+            i = ρσ_Index5;
+            "113";
+            for (var ρσ_Index6 = 0; ρσ_Index6["<"](count["+"](1)); ρσ_Index6++) {
+                j = ρσ_Index6;
+                "114";
+                P = ρσ_getitem(ρσ_getitem(lstPoint, i), j);
+                "115";
+                P.pos.y = (await calA1(P))["+"]((await calA2(P)));
+            }
+        }
+    };
+    if (!redraw_quad.__module__) Object.defineProperties(redraw_quad, {
+        __module__ : {value: null}
+    });
+
+    "117";
+    async function redraw_normal() {
+        var ρσ_ls, v, a, b, j, i;
+        "119";
+        for (var ρσ_Index7 = 0; ρσ_Index7["<"](count); ρσ_Index7++) {
+            i = ρσ_Index7;
+            "120";
+            for (var ρσ_Index8 = 0; ρσ_Index8["<"](count); ρσ_Index8++) {
+                j = ρσ_Index8;
+                "121";
+                v = ρσ_getitem(ρσ_getitem(lstPoint, i), j);
+                "122";
+                a = ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j).pos["-"](1["*"](v.pos));
+                "123";
+                b = ρσ_getitem(ρσ_getitem(lstPoint, i), j["+"](1)).pos["-"](1["*"](v.pos));
+                "124";
+                v.normal = cross(a, b);
+            }
+        }
+    };
+    if (!redraw_normal.__module__) Object.defineProperties(redraw_normal, {
+        __module__ : {value: null}
+    });
+
+    "126";
+    scene.append_to_caption("\n\n");
+    "128";
+    chkOpacity = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: chkChangeOpacity, text: "波面", checked: true})]);
+    "129";
+    scene.append_to_caption(" ");
+    "131";
+    async function chkChangeOpacity(ev) {
+        var ρσ_ls, j, i;
+        "132";
+        for (var ρσ_Index9 = 0; ρσ_Index9["<"](count["+"](1)); ρσ_Index9++) {
+            i = ρσ_Index9;
+            "133";
+            for (var ρσ_Index10 = 0; ρσ_Index10["<"](count["+"](1)); ρσ_Index10++) {
+                j = ρσ_Index10;
+                "134";
+                if (ev.checked) {
+                    "135";
+                    ρσ_getitem(ρσ_getitem(lstPoint, i), j).opacity = 1;
+                    "136";
+                } else {
+                    "137";
+                    ρσ_getitem(ρσ_getitem(lstPoint, i), j).opacity = 0;
+                    "138";
+                }
+            }
+        }
+        if (ev.checked) {
+            "139";
+            (await redraw_quad());
+            "140";
+            (await redraw_normal());
+        }
+    };
+    if (!chkChangeOpacity.__argnames__) Object.defineProperties(chkChangeOpacity, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "143";
+    lam = v["*"](T);
+    numCircle = floor(L["/"](lam));
+    "144";
+    circleKrest1 = ρσ_list_decorate([]);
+    circleKrest2 = ρσ_list_decorate([]);
+    circleTrough1 = ρσ_list_decorate([]);
+    circleTrough2 = ρσ_list_decorate([]);
+    "146";
+    for (var ρσ_Index11 = 0; ρσ_Index11["<"](numCircle); ρσ_Index11++) {
+        i = ρσ_Index11;
+        "147";
+        circleKrest1.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve1["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .015, color: color.magenta})]));
+        "148";
+        circleKrest2.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve2["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .015, color: color.magenta})]));
+        "149";
+        circleTrough1.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve1["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .015, color: color.green})]));
+        "150";
+        circleTrough2.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve2["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .015, color: color.green})]));
+    }
+    "152";
+    async function redraw_Circle() {
+        var ρσ_ls, t0, r, i;
+        "153";
+        for (var ρσ_Index12 = 0; ρσ_Index12["<"](numCircle); ρσ_Index12++) {
+            i = ρσ_Index12;
+            "154";
+            t0 = t["-"](1["*"](T)["/"](4))["-"](1["*"](i)["*"](T));
+            "155";
+            if (t0[">="](0)) {
+                r = v["*"](t0["%"](numCircle["*"](T)));
+            } else {
+                r = 0;
+            }
+            "157";
+            ρσ_getitem(circleKrest1, i).radius = r;
+            "158";
+            ρσ_getitem(circleKrest2, i).radius = r;
+            "160";
+            t0 = t["-"](1["*"](3)["*"](T)["/"](4))["-"](1["*"](i)["*"](T));
+            "161";
+            if (t0[">="](0)) {
+                r = v["*"](t0["%"](numCircle["*"](T)));
+            } else {
+                r = 0;
+            }
+            "163";
+            ρσ_getitem(circleTrough1, i).radius = r;
+            "164";
+            ρσ_getitem(circleTrough2, i).radius = r;
+        }
+    };
+    if (!redraw_Circle.__module__) Object.defineProperties(redraw_Circle, {
+        __module__ : {value: null}
+    });
+
+    "166";
+    chkCircle = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: chkChangeCircle, text: "峰谷圆", checked: false})]);
+    "167";
+    async function chkChangeCircle(ev) {
+        var ρσ_ls, i;
+        "168";
+        for (var ρσ_Index13 = 0; ρσ_Index13["<"](numCircle); ρσ_Index13++) {
+            i = ρσ_Index13;
+            "169";
+            ρσ_getitem(circleKrest1, i).visible = ev.checked;
+            "170";
+            ρσ_getitem(circleKrest2, i).visible = ev.checked;
+            "171";
+            ρσ_getitem(circleTrough1, i).visible = ev.checked;
+            "172";
+            ρσ_getitem(circleTrough2, i).visible = ev.checked;
+        }
+        "173";
+        (await redraw_Circle());
+    };
+    if (!chkChangeCircle.__argnames__) Object.defineProperties(chkChangeCircle, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+};
+if (!__main__.__module__) Object.defineProperties(__main__, {
+    __module__ : {value: null}
+});
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+
+//--><!]]></script>
+</div>
