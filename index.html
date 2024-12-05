@@ -1,0 +1,830 @@
+<div id="glowscript" class="glowscript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+<script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.2.min.js"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+;(function() {;
+var ρσ_modules = {};
+var t, T, v, A;
+ρσ_modules.pythonize = {};
+
+(function(){
+    function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+            exclude = (function(){
+                var s = ρσ_set();
+                s.jsset.add("split");
+                s.jsset.add("replace");
+                return s;
+            })();
+        } else if (arguments[0]) {
+            exclude = Array.prototype.slice.call(arguments);
+        } else {
+            exclude = null;
+        }
+        if (exclude) {
+            string_funcs = string_funcs.difference(set(exclude));
+        }
+        var ρσ_Iter0 = string_funcs;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            name = ρσ_Index0;
+            (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+        }
+    };
+    if (!strings.__module__) Object.defineProperties(strings, {
+        __module__ : {value: "pythonize"}
+    });
+
+    ρσ_modules.pythonize.strings = strings;
+})();
+async function __main__() {
+"use strict";
+    var display = canvas;
+    var scene = canvas();
+
+    function round(num, n=0) {return Number(num.toFixed(n))}
+
+    var version, print, arange, __name__, type, ρσ_ls, set, btnOnOff, btnReset, sldSpeed, infoSpeed, dt, t, T, v, A, sldT, infoT, sldv, infov, sldA, infoA, L, count, d, disSource, pWaveSourve1, pWaveSourve2, lstPoint, j, i, chkOpacity, lam, numCircle, circleKrest1, circleKrest2, circleTrough1, circleTrough2, chkCircle, ball0, ball1, ball2, ball3, chkBall12, chkBall3, dLen, cWave1, cWave2, chkWave, cLineStrong, cLineWeak, chkLine;
+    version = ρσ_list_decorate([ "3.2", "glowscript" ]);
+    Array.prototype['+'] = function(r) {return this.concat(r)}
+    Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
+    window.__GSlang = "vpython";
+    print = GSprint;
+    arange = range;
+    __name__ = "__main__";
+    type = pytype;
+    var strings = ρσ_modules.pythonize.strings;
+
+    strings();
+    "3";
+    scene.width = 800;
+    "4";
+    scene.height = 600;
+    "5";
+    scene.background = color.white;
+    "6";
+    scene.append_to_title("<div><h4 >3.4 波的干涉-圆\n</h4></div>");
+    "7";
+    scene.append_to_title("张成进  QQ:82899594");
+    "17";
+    async function vv(x, y, z) {
+        "18";
+        return vector(x, z, 1["-u"]()["*"](y));
+    };
+    if (!vv.__argnames__) Object.defineProperties(vv, {
+        __argnames__ : {value: ["x", "y", "z"]},
+        __module__ : {value: null}
+    });
+
+    "20";
+    async function pol(r, deg1, deg2) {
+        var ρσ_ls, rad1, rad2, Cx, Cy;
+        "21";
+        rad1 = (await radians(deg1));
+        "22";
+        rad2 = (await radians(deg2));
+        "23";
+        Cx = vector(cos(rad1), 0, 1["-u"]()["*"](sin(rad1)));
+        "24";
+        Cy = vector(0, 1, 0);
+        "25";
+        return r["*"](cos(rad2))["*"](Cx)["+"](r["*"](sin(rad2))["*"](Cy));
+    };
+    if (!pol.__argnames__) Object.defineProperties(pol, {
+        __argnames__ : {value: ["r", "deg1", "deg2"]},
+        __module__ : {value: null}
+    });
+
+    "27";
+    set = ρσ_list_decorate([ false, false, false, 1 ]);
+    "31";
+    btnOnOff = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: on_off, text: "Start"})]);
+    "32";
+    async function on_off(ev) {
+        "33";
+        ρσ_setitem(set, 0, !ρσ_getitem(set, 0));
+        "34";
+        ρσ_setitem(set, 1, false);
+        "35";
+        if (ρσ_getitem(set, 0)) {
+            "36";
+            ev.text = "Pause";
+            "37";
+            (await fresh());
+            "39";
+        } else {
+            "40";
+            ev.text = "Start";
+        }
+    };
+    if (!on_off.__argnames__) Object.defineProperties(on_off, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "42";
+    scene.append_to_caption("    ");
+    "43";
+    btnReset = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({bind: reset, text: "Reset"})]);
+    "44";
+    scene.append_to_caption("    ");
+    "46";
+    async function reset() {
+        "47";
+        btnOnOff.text = "Start";
+        "48";
+        ρσ_setitem(set, 0, false);
+        "49";
+        ρσ_setitem(set, 1, true);
+        "50";
+        "51";
+        t = 0;
+        "52";
+        (await redraw_quad());
+        "53";
+        (await redraw_normal());
+        "54";
+        (await redraw_Circle());
+        "55";
+        (await redraw_Point12());
+        "56";
+        (await redraw_Point3());
+    };
+    if (!reset.__module__) Object.defineProperties(reset, {
+        __module__ : {value: null}
+    });
+
+    "59";
+    async function sldChangeSpeed() {
+        "60";
+        ρσ_setitem(set, 3, sldSpeed.value);
+        "61";
+        infoSpeed.text = "动画速度："["+"](ρσ_getitem(set, 3));
+    };
+    if (!sldChangeSpeed.__module__) Object.defineProperties(sldChangeSpeed, {
+        __module__ : {value: null}
+    });
+
+    "63";
+    sldSpeed = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: sldChangeSpeed, min: 0, max: 1, step: .1, value: 1})]);
+    "64";
+    infoSpeed = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "动画速度：1"})]);
+    "67";
+    dt = .05;
+    "68";
+    t = 0;
+    "69";
+    async function fresh() {
+        "70";
+        while (ρσ_getitem(set, 0)) {
+            "71";
+            (await rate(30["*"](ρσ_getitem(set, 3))));
+            "72";
+            "73";
+            if (!ρσ_getitem(set, 1)) {
+                t=t["+"](dt);
+            }
+            "74";
+            if (chkOpacity.checked) {
+                "75";
+                (await redraw_quad());
+                "76";
+                (await redraw_normal());
+                "78";
+            }
+            if (chkCircle.checked) {
+                (await redraw_Circle());
+            }
+            "79";
+            if (chkBall12.checked) {
+                (await redraw_Point12());
+            }
+            "80";
+            if (chkBall3.checked) {
+                (await redraw_Point3());
+            }
+            "81";
+            if (chkWave.checked) {
+                (await redraw_Curve());
+            }
+        }
+    };
+    if (!fresh.__module__) Object.defineProperties(fresh, {
+        __module__ : {value: null}
+    });
+
+    "84";
+    scene.camera.pos = (await vv(2, 1["-u"]()["*"](15), 10));
+    "85";
+    scene.camera.axis = vec(0, 0, 0)["-"](1["*"](scene.camera.pos));
+    "86";
+    scene.range = 7;
+    "89";
+    T = 1.5;
+    v = 1;
+    A = .3;
+    "91";
+    async function sldChangeT() {
+        "92";
+        "93";
+        T = sldT.value;
+        "94";
+        infoT.text = "T="["+"](T);
+        "95";
+        if (chkLine.checked) {
+            (await redraw_Line());
+        }
+    };
+    if (!sldChangeT.__module__) Object.defineProperties(sldChangeT, {
+        __module__ : {value: null}
+    });
+
+    "98";
+    scene.append_to_caption("\n\n");
+    "99";
+    sldT = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: sldChangeT, min: .5, max: 2, step: .1, value: 1.5, length: 200})]);
+    "100";
+    scene.append_to_caption("  ");
+    "101";
+    infoT = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "T=1.5"})]);
+    "103";
+    async function sldChangev() {
+        "104";
+        "105";
+        v = sldv.value;
+        "106";
+        infov.text = "v="["+"](v);
+        "107";
+        if (chkLine.checked) {
+            (await redraw_Line());
+        }
+    };
+    if (!sldChangev.__module__) Object.defineProperties(sldChangev, {
+        __module__ : {value: null}
+    });
+
+    "109";
+    scene.append_to_caption("    ");
+    "110";
+    sldv = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: sldChangev, min: .5, max: 2, step: .1, value: 1, length: 200})]);
+    "111";
+    scene.append_to_caption("  ");
+    "112";
+    infov = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "v=1"})]);
+    "114";
+    async function sldChangeA() {
+        "115";
+        "116";
+        A = sldA.value;
+        "117";
+        infoA.text = "A="["+"](A);
+        "118";
+        ball0.pos.y = 2["*"](A);
+    };
+    if (!sldChangeA.__module__) Object.defineProperties(sldChangeA, {
+        __module__ : {value: null}
+    });
+
+    "121";
+    scene.append_to_caption("    ");
+    "122";
+    sldA = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({bind: sldChangeA, min: .1, max: .6, step: .1, value: .3, length: 200})]);
+    "123";
+    scene.append_to_caption("  ");
+    "124";
+    infoA = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "A=0.3"})]);
+    "127";
+    L = 10;
+    count = 60;
+    d = L["/"](count);
+    "129";
+    disSource = 5;
+    pWaveSourve1 = (await vv(1["-u"]()["*"](L)["/"](2)["+"](1), 1["-u"]()["*"](disSource)["/"](2), 0));
+    pWaveSourve2 = (await vv(1["-u"]()["*"](L)["/"](2)["+"](1), disSource["/"](2), 0));
+    "132";
+    lstPoint = ρσ_list_decorate([]);
+    "134";
+    for (var ρσ_Index1 = 0; ρσ_Index1["<"](count["+"](1)); ρσ_Index1++) {
+        i = ρσ_Index1;
+        "135";
+        lstPoint.append(ρσ_list_decorate([]));
+        "136";
+        for (var ρσ_Index2 = 0; ρσ_Index2["<"](count["+"](1)); ρσ_Index2++) {
+            j = ρσ_Index2;
+            "137";
+            ρσ_getitem(lstPoint, i).append(ρσ_interpolate_kwargs.call(this, vertex, [ρσ_desugar_kwargs({pos: (await vv(1["-u"]()["*"](L)["/"](2)["+"](i["*"](d)), 1["-u"]()["*"](L)["/"](2)["+"](j["*"](d)), 0)), color: color.cyan, normal: (await vv(0, 0, 1))})]));
+        }
+    }
+    "140";
+    for (var ρσ_Index3 = 0; ρσ_Index3["<"](count); ρσ_Index3++) {
+        i = ρσ_Index3;
+        "141";
+        for (var ρσ_Index4 = 0; ρσ_Index4["<"](count); ρσ_Index4++) {
+            j = ρσ_Index4;
+            "142";
+            ρσ_interpolate_kwargs.call(this, quad, [ρσ_desugar_kwargs({vs: ρσ_list_decorate([ ρσ_getitem(ρσ_getitem(lstPoint, i), j), ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j), ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j["+"](1)), ρσ_getitem(ρσ_getitem(lstPoint, i), j["+"](1)) ])})]);
+        }
+    }
+    "145";
+    async function distance1(x, z) {
+        "146";
+        return sqrt(Math.pow((x["-"](1["*"](pWaveSourve1.x))), 2)["+"](Math.pow((z["-"](1["*"](pWaveSourve1.z))), 2)));
+    };
+    if (!distance1.__argnames__) Object.defineProperties(distance1, {
+        __argnames__ : {value: ["x", "z"]},
+        __module__ : {value: null}
+    });
+
+    "147";
+    async function distance2(x, z) {
+        "148";
+        return sqrt(Math.pow((x["-"](1["*"](pWaveSourve2.x))), 2)["+"](Math.pow((z["-"](1["*"](pWaveSourve2.z))), 2)));
+    };
+    if (!distance2.__argnames__) Object.defineProperties(distance2, {
+        __argnames__ : {value: ["x", "z"]},
+        __module__ : {value: null}
+    });
+
+    "150";
+    async function calA1(x, z) {
+        var ρσ_ls, t0;
+        "151";
+        t0 = (await distance1(x, z))["/"](v);
+        "152";
+        if (t["<="](t0)) {
+            "153";
+            return 0;
+            "154";
+        } else {
+            "155";
+            return A["*"](sin(2["*"](pi)["/"](T)["*"](t["-"](1["*"](t0)))));
+        }
+    };
+    if (!calA1.__argnames__) Object.defineProperties(calA1, {
+        __argnames__ : {value: ["x", "z"]},
+        __module__ : {value: null}
+    });
+
+    "157";
+    async function calA2(x, z) {
+        var ρσ_ls, t0;
+        "158";
+        t0 = (await distance2(x, z))["/"](v);
+        "159";
+        if (t["<="](t0)) {
+            "160";
+            return 0;
+            "161";
+        } else {
+            "162";
+            return A["*"](sin(2["*"](pi)["/"](T)["*"](t["-"](1["*"](t0)))));
+        }
+    };
+    if (!calA2.__argnames__) Object.defineProperties(calA2, {
+        __argnames__ : {value: ["x", "z"]},
+        __module__ : {value: null}
+    });
+
+    "166";
+    async function redraw_quad() {
+        var ρσ_ls, po, j, i;
+        "168";
+        for (var ρσ_Index5 = 0; ρσ_Index5["<"](count["+"](1)); ρσ_Index5++) {
+            i = ρσ_Index5;
+            "169";
+            for (var ρσ_Index6 = 0; ρσ_Index6["<"](count["+"](1)); ρσ_Index6++) {
+                j = ρσ_Index6;
+                "170";
+                po = ρσ_getitem(ρσ_getitem(lstPoint, i), j).pos;
+                "171";
+                po.y = (await calA1(po.x, po.z))["+"]((await calA2(po.x, po.z)));
+            }
+        }
+    };
+    if (!redraw_quad.__module__) Object.defineProperties(redraw_quad, {
+        __module__ : {value: null}
+    });
+
+    "173";
+    async function redraw_normal() {
+        var ρσ_ls, v, a, b, j, i;
+        "175";
+        for (var ρσ_Index7 = 0; ρσ_Index7["<"](count); ρσ_Index7++) {
+            i = ρσ_Index7;
+            "176";
+            for (var ρσ_Index8 = 0; ρσ_Index8["<"](count); ρσ_Index8++) {
+                j = ρσ_Index8;
+                "177";
+                v = ρσ_getitem(ρσ_getitem(lstPoint, i), j);
+                "178";
+                a = ρσ_getitem(ρσ_getitem(lstPoint, i["+"](1)), j).pos["-"](1["*"](v.pos));
+                "179";
+                b = ρσ_getitem(ρσ_getitem(lstPoint, i), j["+"](1)).pos["-"](1["*"](v.pos));
+                "180";
+                v.normal = cross(a, b);
+            }
+        }
+    };
+    if (!redraw_normal.__module__) Object.defineProperties(redraw_normal, {
+        __module__ : {value: null}
+    });
+
+    "182";
+    scene.append_to_caption("\n\n");
+    "184";
+    chkOpacity = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: chkChangeOpacity, text: "波面", checked: true})]);
+    "185";
+    scene.append_to_caption("   ");
+    "187";
+    async function chkChangeOpacity(ev) {
+        var ρσ_ls, j, i;
+        "188";
+        for (var ρσ_Index9 = 0; ρσ_Index9["<"](count["+"](1)); ρσ_Index9++) {
+            i = ρσ_Index9;
+            "189";
+            for (var ρσ_Index10 = 0; ρσ_Index10["<"](count["+"](1)); ρσ_Index10++) {
+                j = ρσ_Index10;
+                "190";
+                if (ev.checked) {
+                    "191";
+                    ρσ_getitem(ρσ_getitem(lstPoint, i), j).opacity = 1;
+                    "192";
+                } else {
+                    "193";
+                    ρσ_getitem(ρσ_getitem(lstPoint, i), j).opacity = 0;
+                    "194";
+                }
+            }
+        }
+        if (ev.checked) {
+            "195";
+            (await redraw_quad());
+            "196";
+            (await redraw_normal());
+        }
+    };
+    if (!chkChangeOpacity.__argnames__) Object.defineProperties(chkChangeOpacity, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "199";
+    lam = v["*"](T);
+    numCircle = floor(L["/"](lam));
+    "200";
+    circleKrest1 = ρσ_list_decorate([]);
+    circleKrest2 = ρσ_list_decorate([]);
+    circleTrough1 = ρσ_list_decorate([]);
+    circleTrough2 = ρσ_list_decorate([]);
+    "202";
+    for (var ρσ_Index11 = 0; ρσ_Index11["<"](numCircle); ρσ_Index11++) {
+        i = ρσ_Index11;
+        "203";
+        circleKrest1.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve1["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .02, color: color.red})]));
+        "204";
+        circleKrest2.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve2["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .02, color: color.red})]));
+        "205";
+        circleTrough1.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve1["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .02, color: color.blue})]));
+        "206";
+        circleTrough2.append(ρσ_interpolate_kwargs.call(this, ring, [ρσ_desugar_kwargs({pos: pWaveSourve2["+"]((await vv(0, 0, 2["*"](A)))), axis: (await vv(0, 0, 1)), radius: 0, thickness: .02, color: color.blue})]));
+    }
+    "208";
+    async function redraw_Circle() {
+        var ρσ_ls, t0, r, i;
+        "209";
+        for (var ρσ_Index12 = 0; ρσ_Index12["<"](numCircle); ρσ_Index12++) {
+            i = ρσ_Index12;
+            "210";
+            t0 = t["-"](1["*"](T)["/"](4))["-"](1["*"](i)["*"](T));
+            "211";
+            if (t0[">="](0)) {
+                r = v["*"](t0["%"](numCircle["*"](T)));
+            } else {
+                r = 0;
+            }
+            "213";
+            ρσ_getitem(circleKrest1, i).radius = r;
+            "214";
+            ρσ_getitem(circleKrest2, i).radius = r;
+            "216";
+            t0 = t["-"](1["*"](3)["*"](T)["/"](4))["-"](1["*"](i)["*"](T));
+            "217";
+            if (t0[">="](0)) {
+                r = v["*"](t0["%"](numCircle["*"](T)));
+            } else {
+                r = 0;
+            }
+            "219";
+            ρσ_getitem(circleTrough1, i).radius = r;
+            "220";
+            ρσ_getitem(circleTrough2, i).radius = r;
+        }
+    };
+    if (!redraw_Circle.__module__) Object.defineProperties(redraw_Circle, {
+        __module__ : {value: null}
+    });
+
+    "222";
+    scene.append_to_caption("   ");
+    "223";
+    chkCircle = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: chkChangeCircle, text: "峰谷圆", checked: false})]);
+    "224";
+    async function chkChangeCircle(ev) {
+        var ρσ_ls, i;
+        "225";
+        for (var ρσ_Index13 = 0; ρσ_Index13["<"](numCircle); ρσ_Index13++) {
+            i = ρσ_Index13;
+            "226";
+            ρσ_getitem(circleKrest1, i).visible = ev.checked;
+            "227";
+            ρσ_getitem(circleKrest2, i).visible = ev.checked;
+            "228";
+            ρσ_getitem(circleTrough1, i).visible = ev.checked;
+            "229";
+            ρσ_getitem(circleTrough2, i).visible = ev.checked;
+            "230";
+        }
+        if (ev.checked) {
+            (await redraw_Circle());
+        }
+    };
+    if (!chkChangeCircle.__argnames__) Object.defineProperties(chkChangeCircle, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "233";
+    ball0 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({pos: (await vv(0, 0, 2["*"](A))), radius: .1, color: color.yellow})]);
+    "234";
+    ball1 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .1, color: color.magenta, visible: false})]);
+    "235";
+    ball2 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .1, color: color.blue, visible: false})]);
+    "236";
+    ball3 = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .1, color: color.orange, visible: false})]);
+    "239";
+    async function msDown(ev) {
+        "240";
+        if (ρσ_equals(scene.mouse.pick(), ball0)) {
+            ρσ_setitem(set, 2, true);
+        }
+    };
+    if (!msDown.__argnames__) Object.defineProperties(msDown, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "241";
+    scene.bind("mousedown", msDown);
+    "243";
+    async function msUp(ev) {
+        "244";
+        ρσ_setitem(set, 2, false);
+    };
+    if (!msUp.__argnames__) Object.defineProperties(msUp, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "245";
+    scene.bind("mouseup", msUp);
+    "247";
+    async function msMove(ev) {
+        "248";
+        if (ρσ_getitem(set, 2)) {
+            "249";
+            ball0.pos = ρσ_interpolate_kwargs.call(scene.mouse, scene.mouse.project, [ρσ_desugar_kwargs({normal: (await vv(0, 0, 1)), point: (await vv(0, 0, 2["*"](A)))})]);
+            "250";
+            (await redraw_Point12());
+            "251";
+            (await redraw_Point3());
+            "252";
+            (await reload_Point());
+            "253";
+            (await redraw_Curve());
+        }
+    };
+    if (!msMove.__argnames__) Object.defineProperties(msMove, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "255";
+    scene.bind("mousemove", msMove);
+    "257";
+    async function redraw_Point12() {
+        var ρσ_ls, po;
+        "258";
+        po = ball0.pos;
+        "259";
+        ball1.pos = vec(po.x, (await calA1(po.x, po.z)), po.z);
+        "260";
+        ball2.pos = vec(po.x, (await calA2(po.x, po.z)), po.z);
+    };
+    if (!redraw_Point12.__module__) Object.defineProperties(redraw_Point12, {
+        __module__ : {value: null}
+    });
+
+    "262";
+    async function redraw_Point3() {
+        var ρσ_ls, po;
+        "263";
+        po = ball0.pos;
+        "264";
+        ball3.pos = vec(po.x, (await calA1(po.x, po.z))["+"]((await calA2(po.x, po.z))), po.z);
+    };
+    if (!redraw_Point3.__module__) Object.defineProperties(redraw_Point3, {
+        __module__ : {value: null}
+    });
+
+    "266";
+    async function chkChangeBall12(ev) {
+        "267";
+        ball1.visible = chkBall12.checked;
+        "268";
+        ball2.visible = chkBall12.checked;
+        "269";
+        if (ev.checked) {
+            (await redraw_Point12());
+        }
+    };
+    if (!chkChangeBall12.__argnames__) Object.defineProperties(chkChangeBall12, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "271";
+    scene.append_to_caption("   ");
+    "272";
+    chkBall12 = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({text: "分运动点", bind: chkChangeBall12})]);
+    "274";
+    async function chkChangeBall3(ev) {
+        "275";
+        ball3.visible = chkBall3.checked;
+        "276";
+        if (ev.checked) {
+            (await redraw_Point3());
+        }
+    };
+    if (!chkChangeBall3.__argnames__) Object.defineProperties(chkChangeBall3, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "278";
+    scene.append_to_caption("   ");
+    "279";
+    chkBall3 = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({text: "合运动点", bind: chkChangeBall3})]);
+    "282";
+    dLen = .05;
+    cWave1 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: color.magenta, radius: .02, visible: false})]);
+    cWave2 = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({color: color.blue, radius: .02, visible: false})]);
+    "285";
+    async function reload_Point() {
+        var ρσ_ls, num, unit, i;
+        "286";
+        cWave1.clear();
+        "287";
+        cWave2.clear();
+        "289";
+        num = floor((await distance1(ball0.pos.x, ball0.pos.z))["/"](dLen));
+        "290";
+        unit = norm(vec(ball0.pos.x, 0, ball0.pos.z)["-"](1["*"](pWaveSourve1)));
+        "291";
+        for (var ρσ_Index14 = 0; ρσ_Index14["<"](num["+"](1)); ρσ_Index14++) {
+            i = ρσ_Index14;
+            "292";
+            ρσ_interpolate_kwargs.call(cWave1, cWave1.append, [ρσ_desugar_kwargs({pos: pWaveSourve1["+"](i["*"](dLen)["*"](unit))})]);
+        }
+        "294";
+        num = floor((await distance2(ball0.pos.x, ball0.pos.z))["/"](dLen));
+        "295";
+        unit = norm(vec(ball0.pos.x, 0, ball0.pos.z)["-"](1["*"](pWaveSourve2)));
+        "296";
+        for (var ρσ_Index15 = 0; ρσ_Index15["<"](num["+"](1)); ρσ_Index15++) {
+            i = ρσ_Index15;
+            "297";
+            ρσ_interpolate_kwargs.call(cWave2, cWave2.append, [ρσ_desugar_kwargs({pos: pWaveSourve2["+"](i["*"](dLen)["*"](unit))})]);
+        }
+    };
+    if (!reload_Point.__module__) Object.defineProperties(reload_Point, {
+        __module__ : {value: null}
+    });
+
+    "299";
+    async function redraw_Curve() {
+        var ρσ_ls, p, i;
+        "300";
+        for (var ρσ_Index16 = 0; ρσ_Index16["<"](cWave1.npoints); ρσ_Index16++) {
+            i = ρσ_Index16;
+            "301";
+            p = cWave1.point(i).pos;
+            "302";
+            p.y = (await calA1(p.x, p.z));
+            "303";
+            ρσ_interpolate_kwargs.call(cWave1, cWave1.modify, [i].concat([ρσ_desugar_kwargs({pos: p})]));
+        }
+        "305";
+        for (var ρσ_Index17 = 0; ρσ_Index17["<"](cWave2.npoints); ρσ_Index17++) {
+            i = ρσ_Index17;
+            "306";
+            p = cWave2.point(i).pos;
+            "307";
+            p.y = (await calA2(p.x, p.z));
+            "308";
+            ρσ_interpolate_kwargs.call(cWave2, cWave2.modify, [i].concat([ρσ_desugar_kwargs({pos: p})]));
+        }
+    };
+    if (!redraw_Curve.__module__) Object.defineProperties(redraw_Curve, {
+        __module__ : {value: null}
+    });
+
+    "310";
+    (await reload_Point());
+    "312";
+    async function chkChangeCurve(ev) {
+        "313";
+        cWave1.visible = chkWave.checked;
+        "314";
+        cWave2.visible = chkWave.checked;
+        "315";
+        if (ev.checked) {
+            (await redraw_Curve());
+        }
+    };
+    if (!chkChangeCurve.__argnames__) Object.defineProperties(chkChangeCurve, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "317";
+    scene.append_to_caption("    ");
+    "318";
+    chkWave = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: chkChangeCurve, text: "正弦波"})]);
+    "321";
+    cLineStrong = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({pos: ρσ_list_decorate([ (await vv(1["-u"]()["*"](L)["/"](2)["+"](1), 0, 2["*"](A))), (await vv(L["/"](2), 0, 2["*"](A))) ]), color: color.yellow, radius: .02, visible: false})]);
+    "322";
+    cLineWeak = ρσ_interpolate_kwargs.call(this, curve, [ρσ_desugar_kwargs({radius: .02, color: color.black, visible: false})]);
+    "324";
+    async function redraw_Line() {
+        var ρσ_ls, n, dd, a, c, b, x, z, i;
+        "325";
+        cLineWeak.clear();
+        "326";
+        n = 200;
+        "327";
+        dd = L["-"](1["*"](1))["/"](n);
+        "328";
+        a = v["*"](T)["/"](4);
+        c = disSource["/"](2);
+        b = sqrt(Math.pow(c, 2)["-"](1["*"](Math.pow(a, 2))));
+        "329";
+        for (var ρσ_Index18 = 0; ρσ_Index18["<"](n["+"](1)); ρσ_Index18++) {
+            i = ρσ_Index18;
+            "330";
+            x = i["*"](dd);
+            "331";
+            z = a["/"](b)["*"](sqrt(Math.pow(b, 2)["+"](Math.pow(x, 2))));
+            "332";
+            ρσ_interpolate_kwargs.call(cLineWeak, cLineWeak.append, [ρσ_desugar_kwargs({pos: vec(1["-u"]()["*"](L)["/"](2)["+"](1)["+"](x), 2["*"](A), z)})]);
+        }
+    };
+    if (!redraw_Line.__module__) Object.defineProperties(redraw_Line, {
+        __module__ : {value: null}
+    });
+
+    "334";
+    async function onChkLine(ev) {
+        "335";
+        cLineStrong.visible = ev.checked;
+        "336";
+        cLineWeak.visible = ev.checked;
+        "337";
+        if (ev.checked) {
+            (await redraw_Line());
+        }
+    };
+    if (!onChkLine.__argnames__) Object.defineProperties(onChkLine, {
+        __argnames__ : {value: ["ev"]},
+        __module__ : {value: null}
+    });
+
+    "340";
+    scene.append_to_caption("    ");
+    "341";
+    chkLine = ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: onChkLine, text: "加强减弱线"})]);
+};
+if (!__main__.__module__) Object.defineProperties(__main__, {
+    __module__ : {value: null}
+});
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
+
+//--><!]]></script>
+</div>
